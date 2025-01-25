@@ -1,7 +1,8 @@
 ## Chess Low Level Design
 This repository implements LLD patterns required for Chess game implementation.
 
-The first pattern utilized is FACOTRY DEISGN PATTERN. The code snippet can be found in file `ChessPieces/ChessPiecesFactory.py`
+### Factory Design Pattern
+The first pattern utilized is the FACOTRY DEISGN PATTERN which is one of the creational design patterns. The code snippet can be found in the file `ChessPieces/ChessPiecesFactory.py`
 
 ```
 class ChessPieceFacotory:
@@ -24,7 +25,7 @@ class ChessPieceFacotory:
             raise Exception("Not a valid chess piece type!")
 ```
 
-and the driver code using it in file `Board.py`
+and the driver code using it in the file `Board.py`
 
 ```
         for i, chessObjectType in [(1, ChessObjectColor.BLACK), (6, ChessObjectColor.WHITE)]:
@@ -45,7 +46,17 @@ and the driver code using it in file `Board.py`
             self.cells[self.getFlatCoords(i, 4)] = ChessPieceFacotory.createChessPiece(chessObjectType, ChessPieceType.KING)
 ```
 
-This impolementation is simmpler version of Factory Design Pattern. Below is the UML diagram - 
+This implementation is a simpler version of the Factory Design Pattern. Below is the UML diagram - 
 <img width="818" alt="image" src="https://github.com/user-attachments/assets/85d78e2f-09bc-401c-a604-d0e427d7f6ba" />
 
+
+### Strategy Design Pattern
+The second design pattern utilized is the Strategy Design Pattern, one of the Behavioural Design Patterns. All the files related to this pattern can be found in the `MoveStrategies/` folder. The base strategy class looks like the below - 
+```
+class MoveStrategy:    
+    def move(self, source: Position, target: Position) -> bool:
+        raise NotImplementedError
+```
+All the concrete strategies can be found in the class extending above class. The `ChessPiece` class holds the appropriate instance of the strategy passed during instantiation and used to make a move. 
+<img width="689" alt="image" src="https://github.com/user-attachments/assets/0eb6b4ab-8090-41c0-a80a-1d72b1ff4444" />
 
