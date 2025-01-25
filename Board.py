@@ -4,6 +4,7 @@ from chess.ChessPieces.ChessPieceType import ChessPieceType
 from chess.ChessPieces.ChessObectColor import ChessObjectColor
 
 from Position import Position
+from exceptions import InvalidMoveException
 
 class Board:
     def __init__(self):
@@ -32,9 +33,6 @@ class Board:
         #   3. Factory interface
         #   4. Factory implementation
         
-        # builder design pattern
-        
-        # 8 white and black pawns
         for i, chessObjectType in [(1, ChessObjectColor.BLACK), (6, ChessObjectColor.WHITE)]:
             for j in range(8):
                 self.cells[self.getFlatCoords(i, j)] = ChessPieceFacotory.createChessPiece(chessObjectType, ChessPieceType.PAWN)
@@ -51,10 +49,18 @@ class Board:
                 
             self.cells[self.getFlatCoords(i, 3)] = ChessPieceFacotory.createChessPiece(chessObjectType, ChessPieceType.KING)
             self.cells[self.getFlatCoords(i, 4)] = ChessPieceFacotory.createChessPiece(chessObjectType, ChessPieceType.KING)
-
         
+        # builder design pattern
+        # ...
+
     def getFlatCoords(self, x, y):
         return x*8 + y
+
+    def move(self, curPos: Position, targetPos: Position):
+        idx = self.getFlatCoords(curPos.x, curPos.y)
+        if not self.cells[idx].isFilled():
+            raise InvalidMoveException("Cell is empty!")
+        ...
     
     def reset(self):
         ...
